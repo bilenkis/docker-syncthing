@@ -18,6 +18,7 @@ RUN set -xe;\
     cd /tmp ;\
     wget -qO- https://github.com/syncthing/syncthing/releases/download/${SYNCTHING_VERSION}/syncthing-linux-amd64-${SYNCTHING_VERSION}.tar.gz | tar xz ;\
     mv /tmp/syncthing-linux-amd64-${SYNCTHING_VERSION}/syncthing /usr/bin/syncthing ;\
+    rm -rf /tmp/* ;\
     chmod +x /usr/bin/syncthing
 
 COPY root/ /
