@@ -1,27 +1,23 @@
-FROM ubuntu:16.04
+FROM alpine:3.6
 
 LABEL maintainer Yury Bilenkis <adm@bilenkis.ru>
 
 CMD ["/sbin/boot.sh"]
 
-RUN set -xe ;\
-    export DEBIAN_FRONTEND=noninteractive ;\
-    sed -i -e 's|archive.ubuntu.com|mirror.yandex.ru|g' /etc/apt/sources.list ;\
-    apt-get update -qq  ;\
-    apt-get install --no-install-recommends -qq \
-		ca-certificates \
-		apt-transport-https \
-		curl ;\
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV SYNCTHING_VERSION="v0.14.39"
 
-RUN set -xe;\
-	curl -sLo /usr/bin/gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" ;\
+RUN set -xe ;\
+    apk --no-cache add \
+        ca-certificates \
+        openssl \
+	;\
+    wget -qO /usr/bin/gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" ;\
     chmod +x /usr/bin/gosu
 
-RUN curl -s https://syncthing.net/release-key.txt | apt-key add - ;\
-	echo "deb https://apt.syncthing.net/ syncthing stable" > /etc/apt/sources.list.d/syncthing.list ;\
-	apt-get update ;\
-	apt-get install syncthing ;\
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN set -xe;\
+    cd /tmp ;\
+    wget -qO- https://github.com/syncthing/syncthing/releases/download/${SYNCTHING_VERSION}/syncthing-linux-amd64-${SYNCTHING_VERSION}.tar.gz | tar xz ;\
+    mv /tmp/syncthing-linux-amd64-${SYNCTHING_VERSION}/syncthing /usr/bin/syncthing ;\
+    chmod +x /usr/bin/syncthing
 
 COPY root/ /

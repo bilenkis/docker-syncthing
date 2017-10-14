@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-groupadd -g $PGID syncthing
-useradd -s /bin/false -u $PUID -g $PGID --no-user-group syncthing
+addgroup -g $PGID syncthing
+adduser -s /bin/false -u $PUID -G syncthing syncthing
 
 exec init
