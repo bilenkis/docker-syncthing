@@ -3,4 +3,4 @@
 ::restart:/bin/false
 ##################################
 
-::respawn:/usr/bin/gosu syncthing:syncthing /usr/bin/syncthing -gui-address='0.0.0.0:8384'
+::respawn:/usr/bin/gosu $PUID:$PGID /usr/bin/syncthing -gui-address='0.0.0.0:8384'
