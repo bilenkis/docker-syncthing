@@ -6,7 +6,7 @@ services:
             context: .
         image: syncthing:bilenkis
         hostname: data.bilenkis.ru
-#        restart: always
+        restart: always
         environment:
             - "PUID=107"
             - "PGID=1006"
@@ -14,5 +14,6 @@ services:
             - "8384:8384"
             - "22000:22000"
         volumes:
-            - "/data/sync/:/data/sync"
             - "./.config:/home/syncthing/.config"
+            - "/data/sync/music-bilen:/home/syncthing/music-bilen"
+            - "/data/galery:/home/syncthing/galery:ro"
