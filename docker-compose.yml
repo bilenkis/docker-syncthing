@@ -1,0 +1,18 @@
+version: '2'
+services:
+    app:
+        container_name: sync
+        build:
+            context: .
+        image: syncthing:bilenkis
+        hostname: data.bilenkis.ru
+#        restart: always
+        environment:
+            - "PUID=107"
+            - "PGID=1006"
+        ports:
+            - "8384:8384"
+            - "22000:22000"
+        volumes:
+            - "/data/sync/:/data/sync"
+            - "./.config:/home/syncthing/.config"
