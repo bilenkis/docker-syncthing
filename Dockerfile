@@ -4,7 +4,7 @@ LABEL maintainer Yury Bilenkis <adm@bilenkis.ru>
 
 CMD ["/sbin/boot.sh"]
 
-ENV SYNCTHING_VERSION="v0.14.39"
+ENV SYNCTHING_VERSION="v0.14.45"
 
 RUN set -xe ;\
     apk --no-cache add \
